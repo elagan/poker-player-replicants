@@ -1,4 +1,3 @@
-const http = require('http');
 const request = require('sync-request');
 
 class Player {
@@ -8,12 +7,11 @@ class Player {
 
   static async getRank(gameState) {
     let cards = gameState.community_cards.concat(gameState.players[gameState.in_action].hole_cards);
+    console.log(cards);
     try {
-      let res = request('GET', 'http://rainman.leanpoker.org/rank', {
-        json: cards
-      });
+      let res = request('GET', 'http://rainman.leanpoker.org/rank?cards='+JSON.stringify(cards));
       let a = JSON.parse(res.getBody('utf-8'));
-      return a.rank;
+      return 0 + a.rank;
     } catch (e) {
       console.error(e);
     }
