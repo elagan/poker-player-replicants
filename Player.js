@@ -37,8 +37,9 @@ class Player {
   static betRequest(gameState, bet) {
     if (this.play(gameState)) {
       bet(gameState.current_buy_in);
+    } else {
+      bet(0);
     }
-    bet(0);
   }
 
   static showdown(gameState) {
