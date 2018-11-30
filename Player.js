@@ -18,18 +18,18 @@ class Player {
     return 0;
   }
 
-  static play(gameState) {
+  static rateCards(gameState) {
     if (gameState.community_cards.length < 6) {
       let player = gameState.players[gameState.in_action];
       let cards = player.hole_cards;
       if (this.toValue(cards[0]) > 10 || this.toValue(cards[1]) > 10) {
-        return true;
+        return 1;
       }
     }
     else {
       return this.getRank(gameState);
     }
-    return false;
+    return 0;
   }
 
   static toValue(card) {
@@ -49,7 +49,8 @@ class Player {
   }
 
   static betRequest(gameState, bet) {
-    if (this.play(gameState)) {
+    let score = this.rateCards(gameState);
+    if (score >= 1) {
       bet(gameState.current_buy_in);
     } else {
       bet(0);
