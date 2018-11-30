@@ -24,6 +24,10 @@ class Player {
       let cards = player.hole_cards;
       if (this.toValue(cards[0]) > 10 || this.toValue(cards[1]) > 10) {
         return 1;
+      } else if (this.toValue(cards[0]) === this.toValue(cards[1])) {
+        return 1;
+      } else if (cards[0].suit === cards[1].suit) {
+        return 1;
       }
     }
     else {
