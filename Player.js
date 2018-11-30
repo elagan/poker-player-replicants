@@ -10,10 +10,16 @@ class Player {
   }
 
   static play(gameState) {
-    let player = gameState.players[gameState.in_action];
-    let cards = player.hole_cards;
-    if (this.toValue(cards[0]) > 10 || this.toValue(cards[1]) > 10) {
-      return true;
+    if (gameState.community_cards.length < 6) {
+
+      let player = gameState.players[gameState.in_action];
+      let cards = player.hole_cards;
+      if (this.toValue(cards[0]) > 10 || this.toValue(cards[1]) > 10) {
+        return true;
+      }
+    }
+    else {
+      this.getRank(gameState);
     }
     return false;
   }
