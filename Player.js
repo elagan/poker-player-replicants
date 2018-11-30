@@ -61,6 +61,9 @@ class Player {
     else if (score >= 2) {
       bet(gameState.minimum_raise);
     }
+    else if (score >= 3) {
+      bet(gameState.minimum_raise + score * gameState.small_blind * 2);
+    }
     else if (score >= 7) {
       bet(player.stack);
     }
