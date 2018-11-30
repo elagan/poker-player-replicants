@@ -1,17 +1,27 @@
 const http = require('http');
+const request = require('sync-request');
 
 class Player {
   static get VERSION() {
     return '0.1';
   }
 
-  static getRank(gameState) {
-
+  static async getRank(gameState) {
+    let cards = gameState.community_cards.concat(gameState.players[gameState.in_action].hole_cards);
+    try {
+      let res = request('GET', 'http://rainman.leanpoker.org/rank', {
+        json: cards
+      });
+      let a = JSON.parse(res.getBody('utf-8'));
+      return a.rank;
+    } catch (e) {
+      console.error(e);
+    }
+    return 0;
   }
 
   static play(gameState) {
     if (gameState.community_cards.length < 6) {
-
       let player = gameState.players[gameState.in_action];
       let cards = player.hole_cards;
       if (this.toValue(cards[0]) > 10 || this.toValue(cards[1]) > 10) {
@@ -19,7 +29,7 @@ class Player {
       }
     }
     else {
-      this.getRank(gameState);
+      return this.getRank(gameState);
     }
     return false;
   }
