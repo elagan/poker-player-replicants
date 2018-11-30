@@ -5,7 +5,7 @@ class Player {
     return '0.1';
   }
 
-  static async getRank(gameState) {
+  static getRank(gameState) {
     let cards = gameState.community_cards.concat(gameState.players[gameState.in_action].hole_cards);
     console.log(cards);
     try {
